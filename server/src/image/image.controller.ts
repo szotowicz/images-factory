@@ -20,7 +20,7 @@ export class ImageController {
     description: 'No result found',
   })
   @ApiQuery({ name: 'query', description: 'Search query term or phrase' })
-  async getImages(@Query() imageQuery: ImageQuery): Promise<ImageSearchResult[]> {
+  async getImages(@Query() imageQuery: ImageQuery): Promise<ImageSearchResult> {
     try {
       let pageNumber = 1;
       if (imageQuery.pageNumber) {
@@ -30,7 +30,13 @@ export class ImageController {
         }
       }
 
-      return imageQuery.query ? await this.imageService.getImages(imageQuery.query, pageNumber) : [];
+      return imageQuery.query
+        ? await this.imageService.getImages(imageQuery.query, pageNumber)
+        : {
+            pageNumber: 0,
+            pageCount: 0,
+            data: [],
+          };
     } catch (error) {
       throw new HttpException('INTERNAL_SERVER_ERROR', HttpStatus.INTERNAL_SERVER_ERROR);
     }

@@ -16,6 +16,8 @@ $ yarn i
 
 ## Running
 
+The default server address in the development environment is 'http://localhost:8080'
+
 ```bash
 # development
 $ yarn start:dev

@@ -4,5 +4,13 @@ export class Image {
   @ApiProperty()
   id: string;
   @ApiProperty()
-  url: string;
+  type: string;
+  @ApiProperty()
+  pageURL: string;
+  @ApiProperty()
+  smallImageURL: string;
+  @ApiProperty()
+  mediumImageURL: string;
+  @ApiProperty()
+  largeImageURL: string;
 }
