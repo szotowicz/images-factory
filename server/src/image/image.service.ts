@@ -12,7 +12,7 @@ export class ImageService {
   ) {}
 
   async getImages(query: string, pageNumber = 1): Promise<ImageSearchResult> {
-    console.log(`[LOG] Searched phrase is: ${query}`);
+    console.log(`[LOG] Searched phrase is: "${query}" on page: "${pageNumber}"`);
 
     if (query.length === 0) {
       return null;
