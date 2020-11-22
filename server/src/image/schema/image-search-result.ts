@@ -6,6 +6,4 @@ export class ImageSearchResult {
   data: Image[];
   @ApiProperty()
   pageNumber: number;
-  @ApiProperty()
-  pageCount: number;
 }

@@ -36,7 +36,6 @@ export class GiphyService {
   private parseGiphyResult(giphyResult: GiphyResult) {
     const result: ImageSearchResult = {
       pageNumber: null,
-      pageCount: 10, // TODO ile? jest ogolnie?
       data: giphyResult.data.map((r) => {
         const image: Image = {
           id: r.id,

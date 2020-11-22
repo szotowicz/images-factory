@@ -34,7 +34,6 @@ export class PixabayService {
   private parsePixabayResult(pixabayResult: PixabayResult) {
     const result: ImageSearchResult = {
       pageNumber: null,
-      pageCount: 10, // TODO ile? jest ogolnie?
       data: pixabayResult.hits.map((r) => {
         const image: Image = {
           id: String(r.id),

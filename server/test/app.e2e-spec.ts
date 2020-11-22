@@ -30,7 +30,6 @@ describe('ImageController (e2e)', () => {
 
     const result: ImageSearchResult = response.body;
     expect(result.pageNumber).toBe(1);
-    expect(result.pageCount).toBe(20);
     expect(result.data.length).toBe(0);
   });
 
@@ -42,7 +41,6 @@ describe('ImageController (e2e)', () => {
 
     const result: ImageSearchResult = response.body;
     expect(result.pageNumber).toBe(1);
-    expect(result.pageCount).toBe(20);
     expect(result.data.length).toBe(20);
     result.data.forEach((i: Image) => {
       expect(i.id).toBeDefined();
@@ -68,7 +66,6 @@ describe('ImageController (e2e)', () => {
     const defaultPageResult: ImageSearchResult = responseDefaultPageNumber.body;
     const firstPageResult: ImageSearchResult = responseFirstPage.body;
     expect(defaultPageResult.pageNumber).toBe(firstPageResult.pageNumber);
-    expect(defaultPageResult.pageCount).toBe(firstPageResult.pageCount);
     defaultPageResult.data.forEach((i: Image) => {
       const sameImageInFirstPageResult = firstPageResult.data.find((image) => image.id === i.id);
       expect(sameImageInFirstPageResult).not.toBe(null);
@@ -96,7 +93,6 @@ describe('ImageController (e2e)', () => {
     const secondPageResult: ImageSearchResult = responseSecondPage.body;
     expect(firstPageResult.pageNumber).toBe(1);
     expect(secondPageResult.pageNumber).toBe(2);
-    expect(firstPageResult.pageCount).toBe(secondPageResult.pageCount);
     firstPageResult.data.forEach((i: Image) => {
       const sameImageInSecondPageResult = secondPageResult.data.find((image) => image.id === i.id);
       expect(sameImageInSecondPageResult).toBe(undefined);
