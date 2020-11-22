@@ -5,6 +5,7 @@ import { Grid } from '@material-ui/core';
 import { Header } from '../../components/header';
 import { ImageTile } from '../../components/imageTile';
 import { SearchBox } from '../../components/searchBox';
+import { ShowMoreButton } from '../../components/showMoreButton';
 import { PageContainer } from '../PageContainer';
 
 const HomeContainer = styled('div')(() => ({
@@ -14,18 +15,30 @@ const HomeContainer = styled('div')(() => ({
 }));
 
 const HomePage = () => {
+  const [currentQuery, setCurrentQuery] = useState('');
+  const [currentPageNumber, setCurrentPageNumber] = useState(1);
   const [images, setImages] = useState([]);
 
   useEffect(() => {
     fetchImages('WWW');
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const fetchImages = async (query) => {
-    if (query && query.length > 0) {
-      console.log('szuka mi ', query);
-      const result = await axios(`http://localhost:8080/image?query=${query}`);
+  const fetchImages = async (query, pageNumber = 1, appendResult = false) => {
+    if (query && pageNumber && query.trim().length > 0) {
+      setCurrentQuery(query);
+      setCurrentPageNumber(pageNumber);
+      const result = await axios(`http://localhost:8080/image?query=${query}&pageNumber=${pageNumber}`);
       setImages(result.data.data);
+      if (appendResult) {
+        setImages(images.concat(result.data.data));
+      } else {
+        setImages(result.data.data);
+      }
     }
+  }
+
+  const showMore = async () => {
+    fetchImages(currentQuery, currentPageNumber + 1, true);
   }
 
   return (
@@ -43,6 +56,7 @@ const HomePage = () => {
               )
             })}
           </Grid>
+          <ShowMoreButton showMore={showMore} />
         </HomeContainer>
       </Grid>
     </PageContainer>

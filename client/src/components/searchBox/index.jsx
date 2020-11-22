@@ -1,18 +1,21 @@
-import React, { useState }from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { styled } from '@material-ui/styles';
 import { Button, Grid, TextField } from '@material-ui/core';
 
 const SearchBoxContainer = styled('div')(() => ({
-  padding: '16px',
-  backgroundColor: '#7B95BC',
+  padding: '6px 16px 16px',
+  backgroundColor: '#A9C4EA',
   marginBottom: '48px',
   borderRadius: '8px',
-
   '& button': {
     height: '50px',
     width: '90%',
-  }
+    marginTop: '10px',
+  },
+  '& div.MuiTextField-root': {
+    marginTop: '10px',
+  },
 }));
 
 export const SearchBox = props => {

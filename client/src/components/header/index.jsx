@@ -5,8 +5,9 @@ import PropTypes from 'prop-types';
 
 const HeaderContainer = styled('div')(() => ({
   padding: '64px 0',
-  backgroundColor: '#2C529E',
-  color: '#6C008C',
+  backgroundColor: '#5375BB',
+  color: '#000165',
+  textShadow: `2px 2px 3px #CCCCCC90`,
 }));
 
 export const Header = props => {
@@ -14,7 +15,7 @@ export const Header = props => {
 
   return (
     <HeaderContainer>
-      <Typography align="center" variant="h2">
+      <Typography align="center" variant="h1">
         {title}
       </Typography>
     </HeaderContainer>
