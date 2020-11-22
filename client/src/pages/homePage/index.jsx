@@ -23,7 +23,7 @@ const HomePage = () => {
     fetchImages('WWW');
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const fetchImages = async (query, pageNumber = 1, appendResult = false) => {
+  const fetchImages = async (query, pageNumber = 1, appendResult = false, scrollPosition = 0) => {
     if (query && pageNumber && query.trim().length > 0) {
       setCurrentQuery(query);
       setCurrentPageNumber(pageNumber);
@@ -31,6 +31,7 @@ const HomePage = () => {
       setImages(result.data.data);
       if (appendResult) {
         setImages(images.concat(result.data.data));
+        window.scrollTo(0, scrollPosition);
       } else {
         setImages(result.data.data);
       }
@@ -38,14 +39,14 @@ const HomePage = () => {
   }
 
   const showMore = async () => {
-    fetchImages(currentQuery, currentPageNumber + 1, true);
+    fetchImages(currentQuery, currentPageNumber + 1, true, window.pageYOffset);
   }
 
   return (
     <PageContainer>
       <Grid container>
         <Grid item xs={12}>
-          <Header title="Images Factory" />
+          <Header title="Images Factory"/>
         </Grid>
         <HomeContainer>
           <SearchBox fetchImages={fetchImages} />
