@@ -1,7 +1,19 @@
 import React, { useState }from 'react';
 import PropTypes from 'prop-types';
+import { styled } from '@material-ui/styles';
 import { Button, Grid, TextField } from '@material-ui/core';
-import { SearchBoxContainer } from './SearchBoxContainer';
+
+const SearchBoxContainer = styled('div')(() => ({
+  padding: '16px',
+  backgroundColor: '#7B95BC',
+  marginBottom: '48px',
+  borderRadius: '8px',
+
+  '& button': {
+    height: '50px',
+    width: '90%',
+  }
+}));
 
 export const SearchBox = props => {
   const { fetchImages } = props;

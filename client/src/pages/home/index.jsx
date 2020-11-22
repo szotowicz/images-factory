@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { styled } from '@material-ui/styles';
 import { Grid } from '@material-ui/core';
 import { Header } from '../../components/header';
 import { ImageTile } from '../../components/imageTile';
 import { SearchBox } from '../../components/searchBox';
 import { PageContainer } from '../PageContainer';
-import { HomeContainer } from './HomeContainer';
+
+const HomeContainer = styled('div')(() => ({
+  padding: '32px',
+  width: '100%',
+  textAlign: 'center',
+}));
 
 const HomePage = () => {
   const [images, setImages] = useState([]);
