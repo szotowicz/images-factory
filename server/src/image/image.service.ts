@@ -18,20 +18,21 @@ export class ImageService {
       return null;
     }
 
+    const limitFromSource = 10;
     const result: ImageSearchResult = {
       pageNumber: 0,
       pageCount: 0,
       data: [],
     };
 
-    const pixabayResult: ImageSearchResult = await this.pixabayService.fetch(query, pageNumber);
+    const pixabayResult: ImageSearchResult = await this.pixabayService.fetch(query, pageNumber, limitFromSource);
     if (pixabayResult) {
       result.pageNumber = pageNumber;
       result.pageCount += pixabayResult.pageCount;
       result.data = result.data.concat(pixabayResult.data);
     }
 
-    const giphyResult: ImageSearchResult = await this.giphyService.fetch(query, pageNumber);
+    const giphyResult: ImageSearchResult = await this.giphyService.fetch(query, pageNumber - 1, limitFromSource);
     if (giphyResult) {
       result.pageNumber = pageNumber;
       result.pageCount += giphyResult.pageCount;

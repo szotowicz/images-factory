@@ -8,20 +8,22 @@ import { ImageSearchResult } from './schema/image-search-result';
 export class GiphyService {
   constructor(private readonly httpService: HttpService) {}
 
-  async fetch(query: string, pageNumber = 1): Promise<ImageSearchResult> {
+  async fetch(query: string, pageNumber: number, limit: number): Promise<ImageSearchResult> {
     if (query.length === 0) {
       return null;
     }
 
-    const giphyResult: GiphyResult = await this.fetchFromGiphy(query, pageNumber);
+    const giphyResult: GiphyResult = await this.fetchFromGiphy(query, pageNumber, limit);
     return giphyResult ? this.parseGiphyResult(giphyResult) : null;
   }
 
-  private async fetchFromGiphy(query: string, pageNumber = 1): Promise<GiphyResult> {
+  private async fetchFromGiphy(query: string, pageNumber: number, limit: number): Promise<GiphyResult> {
     try {
       return await this.httpService
         .get(
-          `http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_KEY}&q=${query}&offset=${pageNumber}&limit=3`,
+          `http://api.giphy.com/v1/gifs/search?api_key=${process.env.GIPHY_KEY}&q=${query}&offset=${
+            pageNumber * limit
+          }&limit=${limit}`,
         )
         .pipe(map((response) => response.data))
         .toPromise();

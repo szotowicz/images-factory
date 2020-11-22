@@ -8,20 +8,20 @@ import { PixabayResult } from './schema/pixabay-result';
 export class PixabayService {
   constructor(private readonly httpService: HttpService) {}
 
-  async fetch(query: string, pageNumber = 1): Promise<ImageSearchResult> {
+  async fetch(query: string, pageNumber: number, limit: number): Promise<ImageSearchResult> {
     if (query.length === 0) {
       return null;
     }
 
-    const pixabayResult: PixabayResult = await this.fetchFromPixabay(query, pageNumber);
+    const pixabayResult: PixabayResult = await this.fetchFromPixabay(query, pageNumber, limit);
     return pixabayResult ? this.parsePixabayResult(pixabayResult) : null;
   }
 
-  private async fetchFromPixabay(query: string, pageNumber = 1): Promise<PixabayResult> {
+  private async fetchFromPixabay(query: string, pageNumber: number, limit: number): Promise<PixabayResult> {
     try {
       return await this.httpService
         .get(
-          `https://pixabay.com/api/?key=${process.env.PIXABAY_KEY}&image_type=photo&q=${query}&page=${pageNumber}&per_page=3`,
+          `https://pixabay.com/api/?key=${process.env.PIXABAY_KEY}&image_type=photo&q=${query}&page=${pageNumber}&per_page=${limit}`,
         )
         .pipe(map((response) => response.data))
         .toPromise();
